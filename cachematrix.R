@@ -11,7 +11,7 @@ makeCacheMatrix <- function(x=matrix()) {
     inv <- NULL                                         ##sets inverse to NULL
     set <- function(y){                                 ##subfunction allows matrix to be re-set
         x <<- y	                                        ##matrix is re-set in enclosing environment
-        inv <<- NULL  									##inverse is re-set in enclosing enviro. no more cached inverse
+        inv <<- NULL                                    ##inverse is re-set in enclosing enviro. no more cached inverse
         }
     get <- function() {x                                ##subfunction retrieves matrix
         }
