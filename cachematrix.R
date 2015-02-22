@@ -6,19 +6,19 @@
 ##re-assign the matrix, and retrieve and set the inverse of the matrix. 
 ##Use with the function cacheSolve to calculate and cache the inverse for retrieval.  
 
-makeCacheMatrix <- function(x=matrix()) {      
-	inv <- NULL
-	set <- function(y){								
-		x <<- y
-		inv <<- NULL  
+makeCacheMatrix <- function(x=matrix()) {      				##takes matrix as argument
+	inv <- NULL												##sets inverse to NULL
+		set <- function(y){									##subfunction allows matrix to be re-set
+		x <<- y												##matrix is re-set in parent environment
+		inv <<- NULL  										##inverse is re-set in parent enviro. no more cached inverse
 		}
-	get <- function() {x
+	get <- function() {x									##subfunction retrieves matrix
 		}
-	setinv <- function(solve_inv) {inv <<- solve_inv
-		}
-	getinv <- function() {inv 	
-		}
-	list(set = set, get = get, 
+	setinv <- function(solve_inv) {inv <<- solve_inv		##subfunction sets inverse--usually through cacheSolve  
+		}													##but could also call it on the command line and assign value	
+	getinv <- function() {inv 								##subfunction retrieves inverse
+		}													
+	list(set = set, get = get, 								##list returned by makeCacheMatrix of available subfunctions
 		setinv = setinv,
 		getinv = getinv)
 	}
@@ -29,13 +29,13 @@ makeCacheMatrix <- function(x=matrix()) {
 ##cacheSolve will return the cached inverse matrix. 
 
 cacheSolve  <- function(x, ...){
-	inv <- x$getinv()
-	if(!is.null(inv)){
+	inv <- x$getinv()										##assigns subfunction to inv 
+	if(!is.null(inv)){										##if inverse is already assigned, returns it
 		message("getting cached data")
 		return(inv)
 	}
-	data <- x$get()
-	inv <-solve(data, ...)
-	x$setinv(inv)
-	inv
+	data <- x$get()											##otherwise, assigns matrix to 'data' and calculates inverse
+	inv <-solve(data, ...)									##assigns inverse to 'inv'
+	x$setinv(inv)											##assigns inverse to subfunction
+	inv														##returns inverse
 }
